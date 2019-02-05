@@ -9,7 +9,7 @@
     "in-source": false
   }],
   "suffix": ".bs.js",
-  "namespace": true,
+  "namespace": false,
   "bs-dependencies": [
     "reason-react",
     "bs-css"
