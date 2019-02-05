@@ -1,6 +1,6 @@
 {
   "name": "@divertiseasia/bs-divertise-core-components",
-  "version": "0.1.1",
+  "version": "0.1.11",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
@@ -25,5 +25,9 @@
   },
   "devDependencies": {
     "bs-platform": "^4.0.7"
-  }
+  },
+  "files": [
+    "src/",
+    "bsconfig.json"
+  ]
 }
