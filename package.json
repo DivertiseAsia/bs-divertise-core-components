@@ -1,0 +1,29 @@
+{
+  "name": "bs-divertise-core-components",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "BuckleScript",
+    "Reason",
+    "Components"
+  ],
+  "homepage": "https://github.com/DivertiseAsia/bs-divertise-core-components",
+  "repository": "https://github.com/DivertiseAsia/bs-divertise-core-components",
+  "bugs": "https://github.com/DivertiseAsia/bs-divertise-core-components",
+  "author": "Divertise Asia Co., Ltd.",
+  "license": "MIT",
+  "dependencies": {
+    "bs-css": "^7.2.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "reason-react": ">=0.4.0"
+  },
+  "devDependencies": {
+    "bs-platform": "^4.0.7"
+  }
+}
