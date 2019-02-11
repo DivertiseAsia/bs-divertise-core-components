@@ -38,7 +38,7 @@ let make = (~visible: bool, ~pressClose: ReactEvent.Mouse.t => unit, ~className:
         ++ Js.Option.getWithDefault("popup-default", className)
       }
       onClick=pressClose>
-      <div className={"pop-up-container popup-delete-offer " ++ popupContainer} onClick={e => ReactEvent.Mouse.stopPropagation(e)}>
+      <div className={"pop-up-container " ++ popupContainer} onClick={e => ReactEvent.Mouse.stopPropagation(e)}>
         <div className="pop-up-body"> ...children </div>
       </div>
     </div>,
