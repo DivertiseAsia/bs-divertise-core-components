@@ -32,11 +32,11 @@ let renderItemEnd = (itemEnd: option(itemEnd), extraClass: string) =>
     <span className={"item-end item-end-" ++ extraClass}>
       {
         switch (value) {
-        | Text(s) => <span> {ReasonReact.string(s)} </span>
+        | Text(s) => <span className="item-end-text"> {ReasonReact.string(s)} </span>
         | Image(s) =>
-          <span className=imageStyle style={ReactDOMRe.Style.make(~backgroundImage="url('" ++ s ++ "')", ())} />
-        | Button(s, onClick) => <button onClick> {ReasonReact.string(s)} </button>
-        | Children(s) => <span>...s</span>
+          <span className=(imageStyle ++ " item-end-background-image") style={ReactDOMRe.Style.make(~backgroundImage="url('" ++ s ++ "')", ())} />
+        | Button(s, onClick) => <button className="item-end-button" onClick> {ReasonReact.string(s)} </button>
+        | Children(s) => <span className="item-end-children">...s</span>
         }
       }
     </span>
