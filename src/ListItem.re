@@ -36,7 +36,7 @@ let renderItemEnd = (itemEnd: option(itemEnd), extraClass: string) =>
         | Image(s) =>
           <span className=imageStyle style={ReactDOMRe.Style.make(~backgroundImage="url('" ++ s ++ "')", ())} />
         | Button(s, onClick) => <button onClick> {ReasonReact.string(s)} </button>
-        | _ => <span />
+        | Children(s) => <span>...s</span>
         }
       }
     </span>
