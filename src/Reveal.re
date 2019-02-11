@@ -11,14 +11,15 @@ type state = {show: bool};
 type action =
   | Setshow(bool);
 
-let changeText = (status: bool) =>
+let changeText = (status: bool, afterRevealText:option(string), beforeRevealText:option(string)) =>
   status ?
-    "" : /* TODO: After reveal text*/
-    ">"; /* TODO: Before reveal text*/
+    Js.Option.getWithDefault("", afterRevealText) :
+    Js.Option.getWithDefault(">", beforeRevealText);
 
 let component = ReasonReact.reducerComponent("RevealRe");
 
-let make = (~before: string, ~after: string, ~className: option(string)=?, _children) => {
+let make = (~before: string, ~after: string, ~className: option(string)=?,
+  ~afterRevealText:option(string) = ?, ~beforeRevealText:option(string) = ?, _children) => {
   ...component,
   initialState: () => {show: false},
   reducer: (action, _) =>
@@ -35,7 +36,7 @@ let make = (~before: string, ~after: string, ~className: option(string)=?, _chil
         dangerouslySetInnerHTML={"__html": after}
       />
       <button onClick={_e => self.send(Setshow(!self.state.show))}>
-        {ReasonReact.string(changeText(self.state.show))}
+        {ReasonReact.string(changeText(self.state.show, afterRevealText, beforeRevealText))}
       </button>
     </div>;
   },
