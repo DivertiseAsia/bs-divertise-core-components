@@ -1,6 +1,6 @@
 {
   "name": "@divertiseasia/bs-divertise-core-components",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
