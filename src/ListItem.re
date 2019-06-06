@@ -1,17 +1,17 @@
-open ReasonReact;
+[@bs.config {jsx: 3}];
 open Css;
 
 type itemEnd =
   | Text(string)
   | Image(string)
   | Button(string, ReactEvent.Mouse.t => unit)
-  | Children(array(ReasonReact.reactElement));
+  | Children(React.element);
 
 type itemBody = {
   title: string,
   subtitle: option(string),
   topTitle: option(string),
-  children: option(array(ReasonReact.reactElement)),
+  children: option(React.element),
 };
 
 type item = {
@@ -22,8 +22,6 @@ type item = {
 };
 
 let imageStyle = style([display(inlineBlock), height(`px(20)), width(`px(20))]);
-
-let component = ReasonReact.statelessComponent("ListItemRe");
 
 let renderItemEnd = (itemEnd: option(itemEnd), extraClass: string) =>
   switch (itemEnd) {
@@ -36,7 +34,7 @@ let renderItemEnd = (itemEnd: option(itemEnd), extraClass: string) =>
         | Image(s) =>
           <span className=(imageStyle ++ " item-end-background-image") style={ReactDOMRe.Style.make(~backgroundImage="url('" ++ s ++ "')", ())} />
         | Button(s, onClick) => <button className="item-end-button" onClick> {ReasonReact.string(s)} </button>
-        | Children(s) => <span className="item-end-children">...s</span>
+        | Children(s) => <span className="item-end-children">s</span>
         }
       }
     </span>
@@ -57,17 +55,16 @@ let renderItemBody = (itemBody: itemBody) =>
     {
       switch (itemBody.children) {
       | None => ReasonReact.null
-      | Some(children) => <div className="list-item-subchildren"> ...children </div>
+      | Some(children) => <div className="list-item-subchildren"> children </div>
       }
     }
   </span>;
 
-let make = (~item: item, ~className: option(string)=?, _children) => {
-  ...component,
-  render: _self =>
-    <div className={"list-item " ++ Js.Option.getWithDefault("list-item-default", className)} onClick=?{item.onClick}>
-      {renderItemEnd(item.left, "left")}
-      {renderItemBody(item.body)}
-      {renderItemEnd(item.right, "right")}
-    </div>,
+[@react.component]
+let make = (~item: item, ~className: option(string)=?) => {
+  <div className={"list-item " ++ Js.Option.getWithDefault("list-item-default", className)} onClick=?{item.onClick}>
+    {renderItemEnd(item.left, "left")}
+    {renderItemBody(item.body)}
+    {renderItemEnd(item.right, "right")}
+  </div>
 };

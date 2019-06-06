@@ -1,7 +1,5 @@
 [@bs.config {jsx: 3}];
 
-let component = ReasonReact.statelessComponent("Link");
-
 let handleClick = (href, target, event, isExternal) =>
   switch (isExternal) {
   | Some(true) => ()

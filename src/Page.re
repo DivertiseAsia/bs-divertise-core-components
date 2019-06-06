@@ -1,10 +1,11 @@
+[@bs.config {jsx: 3}];
 open ReasonReact;
 open Belt;
 open Css;
 
 type pageEnd =
   | Text(string)
-  | Children(array(ReasonReact.reactElement));
+  | Children(React.element);
 
 type pageEnds = {
   top: list(pageEnd),
@@ -14,8 +15,6 @@ type pageEnds = {
 let pageStyle = style([display(flexBox), flexDirection(column), maxHeight(vh(100.0)), height(`percent(100.0))]);
 
 let pageContentsStyle = style([overflow(auto), flex(1)]);
-
-let component = ReasonReact.statelessComponent("PageRe");
 
 let mapPageEnd = (pageEndArray: list(pageEnd), extraClass: string) =>
   switch (List.length(pageEndArray)) {
@@ -30,7 +29,7 @@ let mapPageEnd = (pageEndArray: list(pageEnd), extraClass: string) =>
                 {
                   switch ((info: pageEnd)) {
                   | Text(s) => <div className="page-end-text"> {ReasonReact.string(s)} </div>
-                  | Children(children) => <div className="page-end-children"> ...children </div>
+                  | Children(children) => <div className="page-end-children"> children </div>
                   }
                 }
               </div>
@@ -55,19 +54,17 @@ let extraClasses = (pageEnds: pageEnds) => {
   topClass ++ " " ++ bottomClass;
 };
 
-let make = (~pageEnds: pageEnds, ~className: option(string)=?, children: array(ReasonReact.reactElement)) => {
-  ...component,
-  render: _self => {
-    let extraClasses = extraClasses(pageEnds);
-    <div
-      className={
-        "page " ++ extraClasses ++ " " ++ Js.Option.getWithDefault("page-default", className) ++ " " ++ pageStyle
-      }>
-      {mapPageEnd(pageEnds.top, "top")}
-      <div className={"page-content-container " ++ pageContentsStyle} key="children">
-        <div className="page-content"> ...children </div>
-      </div>
-      {mapPageEnd(pageEnds.bottom, "bottom")}
-    </div>;
-  },
+[@react.component]
+let make = (~pageEnds: pageEnds, ~className: option(string)=?, ~children:React.element) => {
+  let extraClasses = extraClasses(pageEnds);
+  <div
+    className={
+      "page " ++ extraClasses ++ " " ++ Js.Option.getWithDefault("page-default", className) ++ " " ++ pageStyle
+    }>
+    {mapPageEnd(pageEnds.top, "top")}
+    <div className={"page-content-container " ++ pageContentsStyle} key="children">
+      <div className="page-content"> children </div>
+    </div>
+    {mapPageEnd(pageEnds.bottom, "bottom")}
+  </div>
 };
