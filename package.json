@@ -1,6 +1,6 @@
 {
   "name": "@divertiseasia/bs-divertise-core-components",
-  "version": "0.1.16",
+  "version": "1.0.0",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
@@ -19,12 +19,12 @@
   "license": "MIT",
   "dependencies": {
     "bs-css": "^7.2.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "reason-react": ">=0.4.0"
+    "react": ">=16.8.1",
+    "react-dom": ">=16.8.1",
+    "reason-react": "^v0.7.0"
   },
   "devDependencies": {
-    "bs-platform": "^4.0.7"
+    "bs-platform": "5.0.3"
   },
   "files": [
     "src/",
