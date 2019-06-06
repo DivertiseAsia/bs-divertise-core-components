@@ -11,7 +11,7 @@ type pageEnds = {
   bottom: list(pageEnd),
 };
 
-let pageStyle = style([display(flexBox), flexDirection(column), maxHeight(vh(100.0)), height(`percent(100.0))]);
+let pageStyle = style([display(flexBox), flexDirection(column), height(`percent(100.0))]);
 
 let pageContentsStyle = style([overflow(auto), flex(1)]);
 
