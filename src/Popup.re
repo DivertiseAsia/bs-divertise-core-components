@@ -1,3 +1,4 @@
+[@bs.config {jsx: 3}];
 open Css;
 
 let popupBackground =
@@ -21,25 +22,21 @@ let popupBackgroundVisible = style([visibility(visible), zIndex(1000), backgroun
 
 let popupContainer = style([backgroundColor(white)]);
 
-let component = ReasonReact.statelessComponent("PopupRe");
-
-let make = (~visible: bool, ~pressClose: ReactEvent.Mouse.t => unit, ~className: option(string)=?, children) => {
-  ...component,
-  render: _self =>
-    <div
-      className={
-        "pop-up-background "
-        ++ popupBackground
-        ++ " "
-        ++ (visible ? "pop-up-visible" : "pop-up-hidden")
-        ++ " "
-        ++ (visible ? popupBackgroundVisible : "")
-        ++ " "
-        ++ Js.Option.getWithDefault("popup-default", className)
-      }
-      onClick=pressClose>
-      <div className={"pop-up-container " ++ popupContainer} onClick={e => ReactEvent.Mouse.stopPropagation(e)}>
-        <div className="pop-up-body"> ...children </div>
-      </div>
-    </div>,
+[@react.component]
+let make = (~visible: bool, ~pressClose: ReactEvent.Mouse.t => unit, ~className: option(string)=?, ~children) => {
+  <div className={
+      "pop-up-background "
+      ++ popupBackground
+      ++ " "
+      ++ (visible ? "pop-up-visible" : "pop-up-hidden")
+      ++ " "
+      ++ (visible ? popupBackgroundVisible : "")
+      ++ " "
+      ++ Js.Option.getWithDefault("popup-default", className)
+    }
+    onClick=pressClose>
+    <div className={"pop-up-container " ++ popupContainer} onClick={e => ReactEvent.Mouse.stopPropagation(e)}>
+      <div className="pop-up-body"> children </div>
+    </div>
+  </div>
 };

@@ -1,3 +1,5 @@
+[@bs.config {jsx: 3}];
+
 let component = ReasonReact.statelessComponent("Link");
 
 let handleClick = (href, target, event, isExternal) =>
@@ -22,6 +24,7 @@ let safeguardRelIfExternalLink = (isExternal: option(bool), rel: option(string))
   | (_, None) => ""
   };
 
+[@react.component]
 let make =
     (
       ~href: string,
@@ -29,16 +32,14 @@ let make =
       ~target: option(string)=?,
       ~isExternal: option(bool)=?,
       ~rel: option(string)=?,
-      children,
+      ~children,
     ) => {
-  ...component,
-  render: self =>
-    <a
-      href
-      className={"link " ++ Js.Option.getWithDefault("link-default", className)}
-      ?target
-      rel={safeguardRelIfExternalLink(isExternal, rel)}
-      onClick={self.handle((event, _) => handleClick(href, target, event, isExternal))}>
-      ...children
-    </a>,
+  <a
+    href
+    className={"link " ++ Js.Option.getWithDefault("link-default", className)}
+    ?target
+    rel={safeguardRelIfExternalLink(isExternal, rel)}
+    onClick={event => handleClick(href, target, event, isExternal)}>
+    children
+  </a>
 };
