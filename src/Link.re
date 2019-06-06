@@ -1,5 +1,3 @@
-[@bs.config {jsx: 3}];
-
 let handleClick = (href, target, event, isExternal) =>
   switch (isExternal) {
   | Some(true) => ()

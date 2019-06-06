@@ -1,5 +1,3 @@
-[@bs.config {jsx: 3}];
-
 [@react.component]
 let make = (~src: string, ~className: option(string)=?, ~children) => {
   <div

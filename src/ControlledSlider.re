@@ -1,5 +1,3 @@
-[@bs.config {jsx: 3}];
-
 open BaseSlider;
 open ReasonReact;
 open Belt;
