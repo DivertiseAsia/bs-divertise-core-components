@@ -16,6 +16,7 @@ let isSelected = (currentItem: navItem, items: list(navItem), current: string) =
   };
 };
 
+[@react.component]
 let make = (~items: list(navItem), ~current: string, ~className: option(string)) => {
   <nav className={"submenu " ++ Js.Option.getWithDefault("submenu-default", className)}>
     {

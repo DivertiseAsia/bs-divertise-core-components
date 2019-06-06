@@ -1,3 +1,4 @@
+[@bs.config {jsx: 3}];
 open ReasonReact;
 open Css;
 
@@ -6,38 +7,26 @@ let revealAfter =
 
 let revealAfterOpen = style([maxHeight(`vw(1000.))]);
 
-type state = {show: bool};
-
-type action =
-  | Setshow(bool);
-
-let changeText = (status: bool, afterRevealText:option(string), beforeRevealText:option(string)) =>
-  status ?
-    Js.Option.getWithDefault("", afterRevealText) :
-    Js.Option.getWithDefault(">", beforeRevealText);
-
-let component = ReasonReact.reducerComponent("RevealRe");
-
+[@react.component]
 let make = (~before: string, ~after: string, ~className: option(string)=?,
-  ~afterRevealText:option(string) = ?, ~beforeRevealText:option(string) = ?, _children) => {
-  ...component,
-  initialState: () => {show: false},
-  reducer: (action, _) =>
-    switch (action) {
-    | Setshow(show) => Update({show: show})
-    },
-  render: self => {
-    let extraClass = self.state.show ? revealAfterOpen : "";
-    <div className={"reveal " ++ Js.Option.getWithDefault("", className)}>
-      <div key="before" className="reveal-before" dangerouslySetInnerHTML={"__html": before} />
-      <div
-        key="after"
-        className={"reveal-after " ++ revealAfter ++ " " ++ extraClass}
-        dangerouslySetInnerHTML={"__html": after}
-      />
-      <button onClick={_e => self.send(Setshow(!self.state.show))}>
-        {ReasonReact.string(changeText(self.state.show, afterRevealText, beforeRevealText))}
-      </button>
-    </div>;
-  },
+  ~afterRevealText:option(string) = ?, ~beforeRevealText:option(string) = ?) => {
+  let (show, setShow) = React.useState(() => false);
+
+  let extraClass = show ? revealAfterOpen : "";
+  <div className={"reveal " ++ Js.Option.getWithDefault("", className)}>
+    <div key="before" className="reveal-before" dangerouslySetInnerHTML={"__html": before} />
+    <div
+      key="after"
+      className={"reveal-after " ++ revealAfter ++ " " ++ extraClass}
+      dangerouslySetInnerHTML={"__html": after}
+    />
+    <button onClick={_e => setShow(_ => !show)}>
+    {
+      switch (show) {
+        | true => {ReasonReact.string(Js.Option.getWithDefault("", afterRevealText))}
+        | false => {ReasonReact.string(Js.Option.getWithDefault(">", beforeRevealText))}
+      }
+    }
+    </button>
+  </div>
 };
