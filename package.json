@@ -1,5 +1,5 @@
 {
-  "name": "@divertiseasia/bs-divertise-core-components",
+  "name": "@divertise-asia/bs-divertise-core-components",
   "version": "1.0.0",
   "scripts": {
     "build": "bsb -make-world",
